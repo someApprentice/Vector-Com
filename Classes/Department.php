@@ -1,8 +1,4 @@
 <?php
-require_once '/../autoload.php';
-?>
-
-<?php
 class Department {
 	public $name;
 	public $employees = array();
@@ -12,34 +8,49 @@ class Department {
 		$this->name = $name;
 	}
 
-	//Я сомневюась в необхадимости этой функции, ведь можно зделать тоже самое снаружи класса:
-	//$department->employees[] = new Employee(...);
-	public function addEmployeeToDepartment($name, $solary, $coffe, $document, $rang = 1, $leader = false) {
-		$this->employees[] = new Employee($name, $solary, $coffe, $document, $rang, $leader);
+
+	public function addEmployee($employee) {
+		$this->employees[] = $employee; 
 	}
 
 	public function calculateEmployeesNumberInDepartment() {
-		$employeesNumber = count($this->employees);
-
-		return $employeesNumber;
+		return count($this->employees);
 	}
 
-	public function calculateDepartmentExpensesCoffeAndDocuemnt() {
+	public function calculateDepartmentTotalSolary() {
+		$totalSolary = 0;
+
 		foreach ($this->employees as $key => $Employee) {
-			$calculateExpenses += $Employee->solary;
-			$calculateCoffe += $Employee->coffe;
-			$calculateDocument += $Employee->document;
+			$totalSolary += $Employee->solary;
 		}
 
-		$expenses = array($calculateExpenses, $calculateCoffe, $calculateDocument);
+		return $totalSolary;
+	}
 
-		return $expenses;
+	public function calculateDepartmentTotalCoffe() {
+		$totalCoffe = 0;
+
+		foreach ($this->employees as $key => $Employee) {
+			$totalCoffe += $Employee->coffe;
+		}
+
+		return $totalCoffe;
+	}
+
+	public function calculateDepartmentTotalDocument() {
+		$totalDocument = 0;
+
+		foreach ($this->employees as $key => $Employee) {
+			$totalDocument += $Employee->document;
+		}
+
+		return $totalDocument;
 	}
 
 	public function calculateAvargeValue() {
-		$avargeValue = $this->expenses[0] / $this->expenses[2];
+		$avargeValue = $this->calculateDepartmentTotalSolary() / $this->calculateDepartmentTotalDocument();
 
-		return $avargeValue;
+		return round($avargeValue, 2);
 	}
 }
 ?>

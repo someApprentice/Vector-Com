@@ -1,8 +1,4 @@
 <?php
-require_once '/../autoload.php';
-?>
-
-<?php
 class Employee {
 	public $name;
 
@@ -48,6 +44,8 @@ class Employee {
 	}
 
 	public function calculateCoffe() {
+		$coffe = $this->coffe;
+
 		if ($this->leader) {
 			$coffe = $this->coffe * 2;
 		}
