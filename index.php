@@ -1,7 +1,9 @@
 <?php
 require_once 'autoload.php';
 require_once 'departments.php';
+require_once 'direction_copy3.php';
 ?>
+
 
 <!DOCTYPE html>
 <html>
