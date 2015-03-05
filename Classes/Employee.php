@@ -3,54 +3,54 @@ class Employee {
 	public $name;
 
 	public $rang;
-	public $solary;
-	public $coffe;
+	public $salary;
+	public $coffee;
 	public $document;
 	public $leader;
 
-	public function __construct($name, $solary, $coffe, $document, $rang = 1, $leader = false) {
+	public function __construct($name, $salary, $coffee, $document, $rang = 1, $leader = false) {
 		$this->name = $name;
-		$this->solary = $solary;
-		$this->coffe = $coffe;
+		$this->salary = $salary;
+		$this->coffee = $coffee;
 		$this->document = $document;
 		$this->rang = $rang;
 		$this->leader = $leader;
 
-		$this->solary = $this->calculateSolary();
-		$this->coffe  = $this->calculateCoffe();
+		$this->salary = $this->calculateSalary();
+		$this->coffee  = $this->calculateCoffee();
 		$this->document = $this->calculateDocument();
 	}
 
-	public function calculateSolary() {
+	public function calculateSalary() {
 		switch ($this->rang) {
 			case 1:
-				$solary = $this->solary; //Хотелось бы услышать твое мнение по поводу того, что я использую такое же имя переменной как и у свойства. Не приведт ли это к путанице?
+				$salary = $this->salary; //Хотелось бы услышать твое мнение по поводу того, что я использую такое же имя переменной как и у свойства. Не приведт ли это к путанице?
 			break;
 
 			case 2:
-				$solary = $this->solary + ($this->solary * 0.25);
+				$salary = $this->salary + ($this->salary * 0.25);
 			break;
 
 			case 3:
-				$solary = $this->solary + ($this->solary * 0.50);
+				$salary = $this->salary + ($this->salary * 0.50);
 			break;
 		}
  
 		if ($this->leader) {
-			$solary = $solary + ($solary * 0.50);
+			$salary = $salary + ($salary * 0.50);
 		}
  
-		return $solary;
+		return $salary;
 	}
 
-	public function calculateCoffe() {
-		$coffe = $this->coffe;
+	public function calculateCoffee() {
+		$coffee = $this->coffee;
 
 		if ($this->leader) {
-			$coffe = $this->coffe * 2;
+			$coffee = $this->coffee * 2;
 		}
 
-		return $coffe;
+		return $coffee;
 	}
 
 	public function calculateDocument() {

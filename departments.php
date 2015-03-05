@@ -22,7 +22,7 @@ for ($i = 0; $i < 2; $i++) {
 $procurement->addEmployee(new Employee('manager', 400, 15, 150, 2, true));
 
 
-//Депортамент продаж
+//Департамент продаж
 $sales = new Department('Sales');
 
 for ($i = 0; $i < 12; $i++) {

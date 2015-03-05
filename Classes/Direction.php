@@ -74,11 +74,13 @@ class Direction {
 		return true;
 	}
 
-	public function setSolaryToEmpoyeesType($type, $newSolary) {
+	public function setSolaryToEmpoyeesType($type, $newSalary) {
 		foreach ($this->departments as $departmentkey => $Department) {
 			foreach ($Department->employees as $employeekey => $Employee) {
 				if ($Employee->name == $type) {
-					$Employee->solary = $newSolary;
+					$Employee->salary = $newSalary;
+
+					$Employee->salary = $Employee->calculateSalary();
 				}
 			}
 		}
@@ -86,11 +88,13 @@ class Direction {
 		return true;
 	}
 
-	public function setCoffeToEmpoyeesType($type, $newCoffe) {
+	public function setCoffeToEmpoyeesType($type, $newCoffee) {
 		foreach ($this->departments as $departmentkey => $Department) {
 			foreach ($Department->employees as $employeekey => $Employee) {
 				if ($Employee->name == $type) {
-					$Employee->coffe = $newCoffe;
+					$Employee->coffee = $newCoffee;
+
+					$Employee->coffee  = $Employee->calculateCoffee();
 				}
 			}
 		}
@@ -120,6 +124,7 @@ class Direction {
 
 				if ($Employee->name == $type and $Employee->rang = 3) {
 					$Employee->leader = true;
+					$Employee->salary = $Employee->calculateSalary();
 
 					$i = 1;
 				}

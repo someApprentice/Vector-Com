@@ -9,8 +9,4 @@ $direction->departments[] = $procurement;
 $direction->departments[] = $sales;
 $direction->departments[] = $advertising;
 $direction->departments[] = $logistics;
-
 ?>
-<pre>
-<?php print_r($direction->returnEmployeesByType('engineer'));?>
-</pre>
