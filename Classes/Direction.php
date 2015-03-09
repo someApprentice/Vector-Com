@@ -2,191 +2,36 @@
 class Direction {
 	public $departments = array();
 
-	public function returnEmployeesByType($type) {
-		$listEmployeesType = array();
+	public function dismissEmployees($type) {
+		$filteredEmployees = array();
 
-		foreach ($this->departments as $departmentkey => $Department) {
-			foreach ($Department->employees as $employeekey => $Employee) {
-				if ($Employee->name == $type and $Employee->leader == false) {
-					$listEmployeesType[] = $Employee;
-				}
+		foreach ($this->departments as $department) {
+			$employees = $department->makeEmployeesArray();
+
+			$filteredEmployees = array_filter($employees, function($f) use ($type) {
+				return ($f->name == $type) and ($f->leader != true);
+			});
+
+			$totalEmployeesType = count($filteredEmployees); 
+
+			if ($totalEmployeesType == 0) {
+				continue;
 			}
-		}
+			
+			$percent = ceil(($totalEmployeesType / 100) * 40);
 
-		return $listEmployeesType;
-	}
-
-	public function dismissEmployyes($list, $type) {
-		$totalEmployyesType = count($list);
-
-		$procent = round((($totalEmployyesType / 100) * 40), 0, PHP_ROUND_HALF_UP);
-
-		$i = 0;
-
-		foreach ($this->departments as $departmentkey => $Department) {
-			foreach ($Department->employees as $employeekey => $Employee) {
-				if ($i == $procent) {
-					break;
-
-					return true;
+			usort($filteredEmployees, function($a, $b) {
+				if ($a->rang == $b->rang) {
+					return 0;
 				}
+		
+				return ($a->rang < $b->rang) ? -1 : 1;
+			});
 
-				if ($Employee->name == $type and $Employee->leader == false and $Employee->rang == 1) {
-					$Department->unsetEmployee($employeekey);
+			$focusEmployees = array_slice($filteredEmployees, 0, $percent);
 
-					$i++;
-				}
-			}
-		}
-
-		foreach ($this->departments as $departmentkey => $Department) {
-			foreach ($Department->employees as $employeekey => $Employee) {
-				if ($i == $procent) {
-					break;
-
-					return true;
-				}
-
-				if ($Employee->name == $type and $Employee->leader == false and $Employee->rang == 2) {
-					$Department->unsetEmployee($employeekey);
-
-					$i++;
-				}
-			}
-		}
-
-		foreach ($this->departments as $departmentkey => $Department) {
-			foreach ($Department->employees as $employeekey => $Employee) {
-				if ($i == $procent) {
-					break;
-
-					return true;
-				}
-
-				if ($Employee->name == $type and $Employee->leader == false and $Employee->rang == 3) {
-					$Department->unsetEmployee($employeekey);
-
-					$i++;
-				}
-			}
-		}
-
-		return true;
-	}
-
-	public function setSolaryToEmpoyeesType($type, $newSalary) {
-		foreach ($this->departments as $departmentkey => $Department) {
-			foreach ($Department->employees as $employeekey => $Employee) {
-				if ($Employee->name == $type) {
-					$Employee->salary = $newSalary;
-
-					$Employee->salary = $Employee->calculateSalary();
-				}
-			}
-		}
-
-		return true;
-	}
-
-	public function setCoffeToEmpoyeesType($type, $newCoffee) {
-		foreach ($this->departments as $departmentkey => $Department) {
-			foreach ($Department->employees as $employeekey => $Employee) {
-				if ($Employee->name == $type) {
-					$Employee->coffee = $newCoffee;
-
-					$Employee->coffee  = $Employee->calculateCoffee();
-				}
-			}
-		}
-
-		return true;
-	}
-
-	public function setToLeader($type) {
-		$i = 0;
-
-		foreach ($this->departments as $departmentkey => $Department) {
-			foreach ($Department->employees as $employeekey => $Employee) {
-				if ($Employee->leader == true) {
-					$Employee->leader = false;
-				}
-			}
-		}
-
-
-		foreach ($this->departments as $departmentkey => $Department) {
-			foreach ($Department->employees as $employeekey => $Employee) {
-				if ($i == 1) {
-					break;
-
-					return true;
-				}
-
-				if ($Employee->name == $type and $Employee->rang = 3) {
-					$Employee->leader = true;
-					$Employee->salary = $Employee->calculateSalary();
-
-					$i = 1;
-				}
-			}
-		}
-
-
-		foreach ($this->departments as $departmentkey => $Department) {
-			foreach ($Department->employees as $employeekey => $Employee) {
-				if ($i == 1) {
-					break;
-
-					return true;
-				}
-
-				if ($Employee->name == $type and $Employee->rang = 2) {
-					$Employee->leader = true;
-
-					$i = 1;
-				}
-			}
-		}
-
-		foreach ($this->departments as $departmentkey => $Department) {
-			foreach ($Department->employees as $employeekey => $Employee) {
-				if ($i == 1) {
-					break;
-
-					return true;
-				}
-
-				if ($Employee->name == $type and $Employee->rang = 1) {
-					$Employee->leader = true;
-
-					$i = 1;
-				}
-			}
-		}
-
-		return true;
-	}
-
-	public function increaseEmployees($list, $type) {
-		$totalEmployyesType = count($list);
-
-		$procent = round((($totalEmployyesType / 100) * 50), 0, PHP_ROUND_HALF_UP);
-
-		$i = 0;
-
-		foreach ($this->departments as $departmentkey => $Department) {
-			foreach ($Department->employees as $employeekey => $Employee) {
-				if ($i == $procent) {
-					break;
-
-					return true;
-				}
-
-				if ($Employee->name == $type and $Employee->rang != 3) {
-					$Employee->rang++;
-
-					$i++;
-				}
+			foreach ($focusEmployees as $employee) {
+				$department->unsetEmployee($employee);
 			}
 		}
 	}

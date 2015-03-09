@@ -1,32 +1,30 @@
 <?php
 class Department {
 	public $name;
-	public $employees = array();
-	public $expenses = array(); //Я помню, что ты был против этой переменной, но с ней просто будет проще удобней посчитать средние значение. Сделай замечание если что-то не так.
-
-	public static $departments = array();
+	public $employees;
 
 	public function __construct($name) {
+		$this->employees = new SplObjectStorage();
+
 		$this->name = $name;
 	}
 
-
 	public function addEmployee($employee) {
-		$this->employees[] = $employee; 
+		$this->employees->attach($employee); 
 	}
 
-	public function unsetEmployee($id) {
-		unset($this->employees[$id]);
+	public function unsetEmployee($employee) {
+		$this->employees->detach($employee);
 	}
 
 	public function calculateEmployeesNumberInDepartment() {
-		return count($this->employees);
+		return $this->employees->count();
 	}
 
 	public function calculateDepartmentTotalSalary() {
 		$totalSalary = 0;
 
-		foreach ($this->employees as $key => $Employee) {
+		foreach ($this->employees as $Employee) {
 			$totalSalary += $Employee->salary;
 		}
 
@@ -36,7 +34,7 @@ class Department {
 	public function calculateDepartmentTotalCoffee() {
 		$totalCoffee = 0;
 
-		foreach ($this->employees as $key => $Employee) {
+		foreach ($this->employees as $Employee) {
 			$totalCoffee += $Employee->coffee;
 		}
 
@@ -46,7 +44,7 @@ class Department {
 	public function calculateDepartmentTotalDocument() {
 		$totalDocument = 0;
 
-		foreach ($this->employees as $key => $Employee) {
+		foreach ($this->employees as $Employee) {
 			$totalDocument += $Employee->document;
 		}
 
@@ -57,6 +55,14 @@ class Department {
 		$avargeValue = $this->calculateDepartmentTotalSalary() / $this->calculateDepartmentTotalDocument();
 
 		return round($avargeValue, 2);
+	}
+
+	public function makeEmployeesArray() {
+		foreach ($this->employees as $object) {
+			$array[] = $object;
+		}
+
+		return $array;
 	}
 }
 ?>
