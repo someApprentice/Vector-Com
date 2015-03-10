@@ -10,3 +10,6 @@ $direction->departments[] = $sales;
 $direction->departments[] = $advertising;
 $direction->departments[] = $logistics;
 ?>
+<pre>
+	<?php //print_r($direction); ?>
+</pre>

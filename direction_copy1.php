@@ -5,5 +5,5 @@ $direction->departments[] = $sales;
 $direction->departments[] = $advertising;
 $direction->departments[] = $logistics;
 
-$direction->dismissEmployyes($direction->returnEmployeesByType('engineer'), 'engineer');
+$direction->dismissEmployees('engineer');
 ?>

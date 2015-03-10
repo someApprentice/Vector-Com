@@ -20,37 +20,18 @@ require_once 'direction_copy3.php';
                <th>стр.</th>
                <th>тугр./стр.</th>
             </tr>
-   			<tr>
-               <td><?=$procurement->name?></td>
-               <td><?=$procurement->calculateEmployeesNumberInDepartment();?></td>
-               <td><?=$procurement->calculateDepartmentTotalSalary();?></td>
-               <td><?=$procurement->calculateDepartmentTotalCoffee();?></td>
-               <td><?=$procurement->calculateDepartmentTotalDocument();?></td>
-               <td><?=$procurement->calculateAvargeValue();?></td>
-            </tr>
-   			<tr><td><?=$sales->name?></td>
-               <td><?=$sales->calculateEmployeesNumberInDepartment();?></td>
-               <td><?=$sales->calculateDepartmentTotalSalary();?></td>
-               <td><?=$sales->calculateDepartmentTotalCoffee();?></td>
-               <td><?=$sales->calculateDepartmentTotalDocument();?></td>
-               <td><?=$sales->calculateAvargeValue();?></td>
-            </tr>
-   			<tr>
-               <td><?=$advertising->name?></td>
-               <td><?=$advertising->calculateEmployeesNumberInDepartment();?></td>
-               <td><?=$advertising->calculateDepartmentTotalSalary();?></td>
-               <td><?=$advertising->calculateDepartmentTotalCoffee();?></td>
-               <td><?=$advertising->calculateDepartmentTotalDocument();?></td>
-               <td><?=$advertising->calculateAvargeValue();?></td>
-            </tr>
-   			<tr>
-               <td><?=$logistics->name?></td>
-               <td><?=$logistics->calculateEmployeesNumberInDepartment();?></td>
-               <td><?=$logistics->calculateDepartmentTotalSalary();?></td>
-               <td><?=$logistics->calculateDepartmentTotalCoffee();?></td>
-               <td><?=$logistics->calculateDepartmentTotalDocument();?></td>
-               <td><?=$logistics->calculateAvargeValue();?></td>
-            </tr>   			
+   			
+
+           <?php foreach ($direction->departments as $departmentkey => $department) : ?>
+                  <tr>
+                     <td><?=$department->name?></td>
+                     <td><?=$department->calculateEmployeesNumberInDepartment();?></td>
+                     <td><?=$department->calculateDepartmentTotalSalary();?></td>
+                     <td><?=$department->calculateDepartmentTotalCoffee();?></td>
+                     <td><?=$department->calculateDepartmentTotalDocument();?></td>
+                     <td><?=$department->calculateAvargeValue();?></td>
+                  </tr>
+            <?php endforeach; ?>			
    		</table>
 
          <br>
@@ -66,17 +47,17 @@ require_once 'direction_copy3.php';
                <th>Документы</th>
                <th>Лидер</th>
             </tr>
-           <?php foreach ($direction->departments as $departmentkey => $Department) : ?>
-              <?php foreach ($Department->employees as $employeekey => $Employee) : ?>
+           <?php foreach ($direction->departments as $departmentkey => $department) : ?>
+              <?php foreach ($department->employees as $employeekey => $employee) : ?>
                   <tr>
-                     <td><?=$Department->name?></td>
+                     <td><?=$department->getName()?></td>
                      <td><?=$employeekey?></td>
-                     <td><?=$Employee->name?></td>
-                     <td><?=$Employee->rang?></td>
-                     <td><?=$Employee->salary?></td>
-                     <td><?=$Employee->coffee?></td>
-                     <td><?=$Employee->document?></td>
-                     <td><?=$Employee->leader?></td>
+                     <td><?=$employee->getName()?></td>
+                     <td><?=$employee->getRang()?></td>
+                     <td><?=$employee->getSalary()?></td>
+                     <td><?=$employee->getCoffee()?></td>
+                     <td><?=$employee->getDocument()?></td>
+                     <td><?=$employee->getLeader()?></td>
                   </tr>
               <?php endforeach; ?>
             <?php endforeach; ?>

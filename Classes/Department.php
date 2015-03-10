@@ -9,11 +9,15 @@ class Department {
 		$this->name = $name;
 	}
 
+	public function getName() {
+		return $this->name;
+	}
+
 	public function addEmployee($employee) {
 		$this->employees->attach($employee); 
 	}
 
-	public function unsetEmployee($employee) {
+	public function fireEmployee($employee) {
 		$this->employees->detach($employee);
 	}
 
@@ -25,7 +29,7 @@ class Department {
 		$totalSalary = 0;
 
 		foreach ($this->employees as $Employee) {
-			$totalSalary += $Employee->salary;
+			$totalSalary += $Employee->getSalary();
 		}
 
 		return $totalSalary;
@@ -35,7 +39,7 @@ class Department {
 		$totalCoffee = 0;
 
 		foreach ($this->employees as $Employee) {
-			$totalCoffee += $Employee->coffee;
+			$totalCoffee += $Employee->getCoffee();
 		}
 
 		return $totalCoffee;
@@ -45,7 +49,7 @@ class Department {
 		$totalDocument = 0;
 
 		foreach ($this->employees as $Employee) {
-			$totalDocument += $Employee->document;
+			$totalDocument += $Employee->getDocument();
 		}
 
 		return $totalDocument;

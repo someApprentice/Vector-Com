@@ -1,12 +1,12 @@
 <?php
 class Employee {
-	public $name;
+	private $name;
 
-	public $rang;
-	public $salary;
-	public $coffee;
-	public $document;
-	public $leader;
+	private $rang;
+	private $salary;
+	private $coffee;
+	private $document;
+	private $leader;
 
 	public function __construct($name, $salary, $coffee, $document, $rang = 1, $leader = false) {
 		$this->name = $name;
@@ -15,13 +15,33 @@ class Employee {
 		$this->document = $document;
 		$this->rang = $rang;
 		$this->leader = $leader;
-
-		$this->salary = $this->calculateSalary();
-		$this->coffee  = $this->calculateCoffee();
-		$this->document = $this->calculateDocument();
 	}
 
-	public function calculateSalary() {
+	public function setRang($rang) {
+		$this->rang = $rang;
+	}
+
+	public function setSalary($salary) {
+		$this->salary = $salary;
+	}
+
+	public function setCoffee($coffee) {
+		$this->coffee = $coffee;
+	}
+
+	public function setLeader($leader) {
+		$this->leader = $leader;
+	}
+
+	public function getName() {
+		return $this->name;
+	}
+
+	public function getRang() {
+		return $this->rang;
+	}
+
+	public function getSalary() {
 		switch ($this->rang) {
 			case 1:
 				$salary = $this->salary; //Хотелось бы услышать твое мнение по поводу того, что я использую такое же имя переменной как и у свойства. Не приведт ли это к путанице?
@@ -43,7 +63,7 @@ class Employee {
 		return $salary;
 	}
 
-	public function calculateCoffee() {
+	public function getCoffee() {
 		$coffee = $this->coffee;
 
 		if ($this->leader) {
@@ -53,7 +73,7 @@ class Employee {
 		return $coffee;
 	}
 
-	public function calculateDocument() {
+	public function getDocument() {
 		$document = $this->document;
 
 		if ($this->leader) {
@@ -61,6 +81,10 @@ class Employee {
 		}
 
 		return $document;
+	}
+
+	public function getLeader() {
+		return $this->leader;
 	}
 }
 ?>

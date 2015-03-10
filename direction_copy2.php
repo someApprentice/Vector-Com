@@ -5,7 +5,7 @@ $direction->departments[] = $sales;
 $direction->departments[] = $advertising;
 $direction->departments[] = $logistics;
 
-$direction->setSolaryToEmpoyeesType('analyst', 1100);
-$direction->setCoffeToEmpoyeesType('analyst', 75);
-$direction->setToLeader('analyst');
+$direction->setSolary('analyst', 1100);
+$direction->setCoffee('analyst', 75);
+$direction->setLeader('analyst');
 ?>
