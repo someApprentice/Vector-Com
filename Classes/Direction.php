@@ -3,36 +3,28 @@ class Direction {
 	public $departments = array();
 
 	public function getEmployeesType($employees, $type, $leader = false) {
-		$array = array();
-
-		$array = array_filter($employees, function($f) use ($type, $leader) {
+		$EmployeesType = array_filter($employees, function($f) use ($type, $leader) {
 				return ($f->getName() == $type) and ($f->getLeader() == $leader);
 		});
 
-		return $array;
+		return $EmployeesType;
 	}
 
-	public function getEmployeesTypeByRang($employees, $type, $leader = false) {
-		$array = array();
-
-		$array = array_filter($employees, function($f) use ($type, $leader) {
+	public function getEmployeesTypeByRang($employees, $type) {
+		$EmployeesTypeByRang = array_filter($employees, function($f) use ($type) {
 				return ($f->getName() == $type) and ($f->getRang() != 3);
 		});
 
-		return $array;
+		return $EmployeesTypeByRang;
 	}
 
-	public function getLeader($employees) {
-		$array = array();
+	public function findAndProcessWorkers($employees, callable $callback) {
+		foreach ($employees as $employee) {
+			$callback($employee);
+		}
+	}	
 
-		$array = array_filter($employees, function($f) {
-				return $f->getLeader() == true;
-		});
-
-		return $array;
-	}
-
-	public function dismissEmployees($type) {
+	public function firstAnticrisisMethod($type) { //Увольняем 40% инженеров в каждом департаменте
 		foreach ($this->departments as $department) {
 			$employees = $department->makeEmployeesArray();
 
@@ -62,52 +54,16 @@ class Direction {
 		}
 	}
 
-	public function setSolary($type, $salary) { 
-		foreach ($this->departments as $department) { //Здесь идет очень много копипасты, и я не могу сообразить как с ней бороться, 
-													//потому что сотруднков мы получаем из конкретного депортамента, который мы получаем из цикла.
+	public function secondAnticrisisMethod($type, $salary, $coffee) { //Повышаем зарплату и кофе определенному типу сотрудников и назначаем нового лидера наивысшего ранга этого же типа
+		foreach ($this->departments as $department) {
 			$employees = $department->makeEmployeesArray();
 
 			$filteredEmployees = $this->getEmployeesType($employees, $type);
 
-			if (count($filteredEmployees) == 0) {
-				continue;
-			}
-
-			foreach ($filteredEmployees as $employee) {
-				$employee->setSalary($salary);
-			}
-		}
-	}
-
-	public function setCoffee($type, $coffe) { 
-		foreach ($this->departments as $department) { //Здесь идет очень много копипасты, и я не могу сообразить как с ней бороться, 
-													//потому что сотруднков мы получаем из конкретного депортамента, который мы получаем из цикла.
-			$employees = $department->makeEmployeesArray();
-
-			$filteredEmployees = $this->getEmployeesType($employees, $type);
-
-			if (count($filteredEmployees) == 0) {
-				continue;
-			}
-
-			foreach ($filteredEmployees as $employee) {
-				$employee->setCoffee($coffe);
-			}
-		}
-	}
-
-	public function setLeader($type) {
-		foreach ($this->departments as $department) { //Здесь идет очень много копипасты, и я не могу сообразить как с ней бороться, 
-													//потому что сотруднков мы получаем из конкретного депортамента, который мы получаем из цикла.
-			$employees = $department->makeEmployeesArray();
-
-			$filteredEmployees = $this->getEmployeesType($employees, $type);
-
-			if (count($filteredEmployees) == 0) {
-				continue;
-			}
-
-			$leader = reset($this->getLeader($employees));
+			$this->findAndProcessWorkers($filteredEmployees, function($o) use($salary) {$o->setSalary($salary);}); //Меняем зарпалту
+			$this->findAndProcessWorkers($filteredEmployees, function($o) use($coffee) {$o->setCoffee($coffee);}); //Меняем кофе
+			
+			$leader = reset($department->getLeader()); //И далее назначаем нового лидера
 
 			$leader->setLeader(false);
 
@@ -125,9 +81,8 @@ class Direction {
 		}
 	}
 
-	public function increaseEmployees($type) {
-		foreach ($this->departments as $department) { //Здесь идет очень много копипасты, и я не могу сообразить как с ней бороться, 
-													//потому что сотруднков мы получаем из конкретного депортамента, который мы получаем из цикла.
+	public function thirdAnticrisisMethod($type) { //
+		foreach ($this->departments as $department) {
 			$employees = $department->makeEmployeesArray();
 
 			$filteredEmployees = $this->getEmployeesTypeByRang($employees, $type);
@@ -139,7 +94,6 @@ class Direction {
 			}
 
 			$percent = ceil(($totalEmployeesType / 100) * 50);
-
 
 			$focusEmployees = array_slice($filteredEmployees, 0, $percent);
 

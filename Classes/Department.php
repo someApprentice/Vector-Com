@@ -13,6 +13,14 @@ class Department {
 		return $this->name;
 	}
 
+	public function getLeader() {
+		$leader = array_filter($this->makeEmployeesArray(), function($f) {
+				return $f->getLeader() == true;
+		});
+
+		return $leader;
+	}	
+
 	public function addEmployee($employee) {
 		$this->employees->attach($employee); 
 	}
@@ -63,10 +71,10 @@ class Department {
 
 	public function makeEmployeesArray() {
 		foreach ($this->employees as $object) {
-			$array[] = $object;
+			$employees[] = $object;
 		}
 
-		return $array;
+		return $employees;
 	}
 }
 ?>

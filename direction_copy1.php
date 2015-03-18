@@ -5,5 +5,5 @@ $direction->departments[] = $sales;
 $direction->departments[] = $advertising;
 $direction->departments[] = $logistics;
 
-$direction->dismissEmployees('engineer');
+$direction->firstAnticrisisMethod('engineer');
 ?>

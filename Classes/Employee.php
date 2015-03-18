@@ -44,7 +44,7 @@ class Employee {
 	public function getSalary() {
 		switch ($this->rang) {
 			case 1:
-				$salary = $this->salary; //Хотелось бы услышать твое мнение по поводу того, что я использую такое же имя переменной как и у свойства. Не приведт ли это к путанице?
+				$salary = $this->salary;
 			break;
 
 			case 2:
@@ -54,6 +54,9 @@ class Employee {
 			case 3:
 				$salary = $this->salary + ($this->salary * 0.50);
 			break;
+
+			default: 
+				throw new Exception('Incorrect rang');
 		}
  
 		if ($this->leader) {
@@ -87,4 +90,3 @@ class Employee {
 		return $this->leader;
 	}
 }
-?>

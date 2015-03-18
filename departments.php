@@ -38,7 +38,7 @@ for ($i = 0; $i < 3; $i++) {
 }
 
 for ($i = 0; $i < 2; $i++) {
-	$sales->addEmployee(new Employee('analyst', 80, 50, 5, 2));
+	$sales->addEmployee(new Employee('analyst', 800, 50, 5, 2));
 }
 
 $sales->addEmployee(new Employee('manager', 500, 20, 200, 2, true));
