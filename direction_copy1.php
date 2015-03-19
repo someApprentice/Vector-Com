@@ -6,4 +6,3 @@ $direction->departments[] = $advertising;
 $direction->departments[] = $logistics;
 
 $direction->firstAnticrisisMethod('engineer');
-?>

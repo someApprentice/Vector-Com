@@ -1,7 +1,7 @@
 <?php
 class Department {
-	public $name;
-	public $employees;
+	private $name;
+	private $employees;
 
 	public function __construct($name) {
 		$this->employees = new SplObjectStorage();
@@ -13,20 +13,36 @@ class Department {
 		return $this->name;
 	}
 
-	public function getLeader() {
-		$leader = array_filter($this->makeEmployeesArray(), function($f) {
-				return $f->getLeader() == true;
+	public function getEmployees() {
+		return $this->employees;
+	}
+
+	public function getLeaders() {
+		$leader = array_filter(iterator_to_array($this->employees), function($f) {
+				return $f->isLeader() == true;
 		});
 
 		return $leader;
 	}	
 
-	public function addEmployee($employee) {
+	public function addEmployee(Employee $employee) {
 		$this->employees->attach($employee); 
 	}
 
-	public function fireEmployee($employee) {
+	public function fireEmployee(Employee $employee) {
 		$this->employees->detach($employee);
+	}
+
+	public function appointLeader(Employee $employee) {
+		# some code
+	}
+
+	public function dismissLeaders() {
+		$leaders = $this->getLeaders();
+
+		foreach ($leaders as $leader) {
+			$leader->setLeader(false);
+		}
 	}
 
 	public function calculateEmployeesNumberInDepartment() {
@@ -66,15 +82,6 @@ class Department {
 	public function calculateAvargeValue() {
 		$avargeValue = $this->calculateDepartmentTotalSalary() / $this->calculateDepartmentTotalDocument();
 
-		return round($avargeValue, 2);
-	}
-
-	public function makeEmployeesArray() {
-		foreach ($this->employees as $object) {
-			$employees[] = $object;
-		}
-
-		return $employees;
+		return $avargeValue;
 	}
 }
-?>

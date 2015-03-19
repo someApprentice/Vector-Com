@@ -1,7 +1,7 @@
 <?php
 require_once 'autoload.php';
 require_once 'departments.php';
-require_once 'direction_copy2.php';
+require_once 'direction.php';
 ?>
 
 
@@ -24,12 +24,12 @@ require_once 'direction_copy2.php';
 
            <?php foreach ($direction->departments as $departmentkey => $department) : ?>
                   <tr>
-                     <td><?=$department->name?></td>
+                     <td><?=$department->getName()?></td>
                      <td><?=$department->calculateEmployeesNumberInDepartment();?></td>
                      <td><?=$department->calculateDepartmentTotalSalary();?></td>
                      <td><?=$department->calculateDepartmentTotalCoffee();?></td>
                      <td><?=$department->calculateDepartmentTotalDocument();?></td>
-                     <td><?=$department->calculateAvargeValue();?></td>
+                     <td><?=round($department->calculateAvargeValue(), 2);?></td>
                   </tr>
             <?php endforeach; ?>			
    		</table>
@@ -48,7 +48,7 @@ require_once 'direction_copy2.php';
                <th>Лидер</th>
             </tr>
            <?php foreach ($direction->departments as $departmentkey => $department) : ?>
-              <?php foreach ($department->employees as $employeekey => $employee) : ?>
+              <?php foreach ($department->getEmployees() as $employeekey => $employee) : ?>
                   <tr>
                      <td><?=$department->getName()?></td>
                      <td><?=$employeekey?></td>
@@ -57,7 +57,7 @@ require_once 'direction_copy2.php';
                      <td><?=$employee->getSalary()?></td>
                      <td><?=$employee->getCoffee()?></td>
                      <td><?=$employee->getDocument()?></td>
-                     <td><?=$employee->getLeader()?></td>
+                     <td><?=$employee->isLeader()?></td>
                   </tr>
               <?php endforeach; ?>
             <?php endforeach; ?>

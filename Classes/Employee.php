@@ -1,6 +1,7 @@
 <?php
 class Employee {
-	private $name;
+	//private $name;
+	const NAME = '';
 
 	private $rang;
 	private $salary;
@@ -8,11 +9,11 @@ class Employee {
 	private $document;
 	private $leader;
 
-	public function __construct($name, $salary, $coffee, $document, $rang = 1, $leader = false) {
-		$this->name = $name;
-		$this->salary = $salary;
-		$this->coffee = $coffee;
-		$this->document = $document;
+	public function __construct($rang = 1, $leader = false) {
+		//$this->name = $name;
+		//$this->salary = $salary;
+		//$this->coffee = $coffee;
+		//$this->document = $document;
 		$this->rang = $rang;
 		$this->leader = $leader;
 	}
@@ -34,7 +35,7 @@ class Employee {
 	}
 
 	public function getName() {
-		return $this->name;
+		return self::NAME;
 	}
 
 	public function getRang() {
@@ -56,7 +57,7 @@ class Employee {
 			break;
 
 			default: 
-				throw new Exception('Incorrect rang');
+				throw new Exception('Incorrect rang: ' . $this->rang);
 		}
  
 		if ($this->leader) {
@@ -86,7 +87,7 @@ class Employee {
 		return $document;
 	}
 
-	public function getLeader() {
+	public function isLeader() {
 		return $this->leader;
 	}
 }
