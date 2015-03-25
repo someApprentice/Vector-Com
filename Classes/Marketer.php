@@ -2,9 +2,13 @@
 class Marketer extends Employee {
 	const NAME = 'marketer';
 
-	private $rang;
-	private $salary = 400;
-	private $coffee = 15;
-	private $document = 150;
-	private $leader;
+	protected $rang;
+	protected $salary = 400;
+	protected $coffee = 15;
+	protected $document = 150;
+	protected $leader;
+
+	public function getName() {
+		return self::class;
+	}
 }

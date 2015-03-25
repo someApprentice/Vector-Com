@@ -53,8 +53,12 @@ class Direction {
 	public function secondAnticrisisMethod($type, $salary, $coffee) { 
 		foreach ($this->departments as $department) {
 			$employees = iterator_to_array($department->getEmployees());
-
+			
 			$filteredEmployees = $this->getEmployeesType($employees, $type);
+
+			if (empty($filteredEmployees)) {
+				continue;
+			}
 
 			array_walk($filteredEmployees, function($o) use($salary) {$o->setSalary($salary);}); //Меняем зарпалту
 			array_walk($filteredEmployees, function($o) use($coffee) {$o->setCoffee($coffee);}); //Меняем кофе
@@ -71,7 +75,9 @@ class Direction {
 
 			$newLeader = reset($filteredEmployees);
 
-			$newLeader->setLeader(true);
+			if (isset($newLeader)) {
+				$newLeader->setLeader(true);
+			}
 		}
 	}
 

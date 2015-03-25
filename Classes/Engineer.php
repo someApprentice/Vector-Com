@@ -2,9 +2,13 @@
 class Engineer extends Employee {
 	const NAME = 'engineer';
 
-	private $rang;
-	private $salary = 200;
-	private $coffee = 5;
-	private $document = 50;
-	private $leader;
+	protected $rang;
+	protected $salary = 200;
+	protected $coffee = 5;
+	protected $document = 50;
+	protected $leader;
+
+	public function getName() {
+		return self::class;
+	}
 }

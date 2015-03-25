@@ -5,4 +5,4 @@ $direction->departments[] = $sales;
 $direction->departments[] = $advertising;
 $direction->departments[] = $logistics;
 
-$direction->thirdAnticrisisMethod('manager');
+$direction->thirdAnticrisisMethod(Manager::class);

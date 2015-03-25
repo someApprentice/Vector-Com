@@ -1,13 +1,12 @@
 <?php
-class Employee {
+abstract class Employee {
 	//private $name;
-	const NAME = '';
 
-	private $rang;
-	private $salary;
-	private $coffee;
-	private $document;
-	private $leader;
+	//private $rang;
+	//private $salary;
+	//private $coffee;
+	//private $document;
+	//private $leader;
 
 	public function __construct($rang = 1, $leader = false) {
 		//$this->name = $name;
@@ -34,9 +33,7 @@ class Employee {
 		$this->leader = $leader;
 	}
 
-	public function getName() {
-		return self::NAME;
-	}
+	abstract public function getName();
 
 	public function getRang() {
 		return $this->rang;
