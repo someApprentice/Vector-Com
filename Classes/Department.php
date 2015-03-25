@@ -33,8 +33,10 @@ class Department {
 		$this->employees->detach($employee);
 	}
 
-	public function appointLeader(Employee $employee) {
-		# some code
+	public function setLeader($newLeader) {
+		$this->dismissLeaders();
+
+		$newLeader->setLeader(true);
 	}
 
 	public function dismissLeaders() {

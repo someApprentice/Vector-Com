@@ -63,8 +63,6 @@ class Direction {
 			array_walk($filteredEmployees, function($o) use($salary) {$o->setSalary($salary);}); //Меняем зарпалту
 			array_walk($filteredEmployees, function($o) use($coffee) {$o->setCoffee($coffee);}); //Меняем кофе
 			
-			$department->dismissLeaders();
-			
 			usort($filteredEmployees, function($a, $b) {
 				if ($a->getRang() == $b->getRang()) {
 					return 0;
@@ -75,9 +73,7 @@ class Direction {
 
 			$newLeader = reset($filteredEmployees);
 
-			if (isset($newLeader)) {
-				$newLeader->setLeader(true);
-			}
+			$department->setLeader($newLeader);
 		}
 	}
 
