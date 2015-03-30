@@ -7,8 +7,4 @@ class Manager extends Employee {
 	protected $coffee = 20;
 	protected $document = 200;
 	protected $leader;
-
-	public function getName() {
-		return self::class;
-	}
 }

@@ -7,8 +7,4 @@ class Analyst extends Employee {
 	protected $coffee = 50;
 	protected $document = 5;
 	protected $leader;
-
-	public function getName() {
-		return self::class;
-	}
 }

@@ -1,12 +1,12 @@
 <?php
 abstract class Employee {
-	//private $name;
+	protected $name;
 
-	//private $rang;
-	//private $salary;
-	//private $coffee;
-	//private $document;
-	//private $leader;
+	protected $rang;
+	protected $salary;
+	protected $coffee;
+	protected $document;
+	protected $leader;
 
 	public function __construct($rang = 1, $leader = false) {
 		//$this->name = $name;
@@ -33,7 +33,9 @@ abstract class Employee {
 		$this->leader = $leader;
 	}
 
-	abstract public function getName();
+	public function getName() {
+		return static::class;
+	}
 
 	public function getRang() {
 		return $this->rang;

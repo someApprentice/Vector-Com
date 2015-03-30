@@ -7,8 +7,4 @@ class Marketer extends Employee {
 	protected $coffee = 15;
 	protected $document = 150;
 	protected $leader;
-
-	public function getName() {
-		return self::class;
-	}
 }
